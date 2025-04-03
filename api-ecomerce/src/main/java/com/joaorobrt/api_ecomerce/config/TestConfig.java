@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.joaorobrt.api_ecomerce.entities.Category;
 import com.joaorobrt.api_ecomerce.entities.Order;
+import com.joaorobrt.api_ecomerce.entities.OrderItem;
 import com.joaorobrt.api_ecomerce.entities.Product;
 import com.joaorobrt.api_ecomerce.entities.User;
 import com.joaorobrt.api_ecomerce.entities.enums.OrderStatus;
 import com.joaorobrt.api_ecomerce.repositories.CategoryRepository;
+import com.joaorobrt.api_ecomerce.repositories.OrderItemRepository;
 import com.joaorobrt.api_ecomerce.repositories.OrderRepository;
 import com.joaorobrt.api_ecomerce.repositories.ProductRepository;
 import com.joaorobrt.api_ecomerce.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private OrderItemRepository orderItemRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -70,6 +75,13 @@ public class TestConfig implements CommandLineRunner {
 		
 		userRepository.saveAll(Arrays.asList(u1,u2));
 		orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+		
+		orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 		
 		
 	}
